@@ -29,3 +29,13 @@ export const getPopularMovies = async (page = 1) => {
 };
 
 // Single Movie Details
+export const getMovieDetails = async (id) => {
+  try {
+    const res = await Axios.get(
+      `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`,
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error, "Error in Fetching Movies");
+  }
+};

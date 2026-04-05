@@ -3,25 +3,24 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { addToFav, removeFromFav, isFav } from "./fav";
 function MovieCard({ movie }) {
+  const [fav, setFav] = useState(isFav(movie.id));
 
-  const [fav, setFav] = useState(isFav(movie.id))
-
-  const toggleFav = ()=>{
-    if(fav){
+  const toggleFav = () => {
+    if (fav) {
       removeFromFav(movie.id);
       toast.info(`${movie.title} removed from Favourites`);
-    }else{
+    } else {
       addToFav(movie);
       toast.success(`${movie.title} added to Favourites`);
     }
-    setFav(!fav)
+    setFav(!fav);
   };
-
-
 
   return (
     <div className="bg-white rounded-lg shadow hover:shadow-xl transition overflow-hidden relative">
-      <button className="absolute top-2 right-2 text-2xl" onClick={toggleFav}>{fav ? "❤️" : "🤍" }</button>
+      <button className="absolute top-2 right-2 text-2xl" onClick={toggleFav}>
+        {fav ? "❤️" : "🤍"}
+      </button>
       <img
         src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
         alt={movie.title}
@@ -34,7 +33,12 @@ function MovieCard({ movie }) {
           <span className="bg-yellow-400 px-2 py-1 rounded text-sm font-bold">
             ⭐ {movie.vote_average}
           </span>
-          <Link className="text-blue-600 font-medium">View Details ➡️</Link>
+          <Link
+            className="text-blue-600 font-medium"
+            to={`/movie-details/${movie.id}`}
+          >
+            View Details ➡️
+          </Link>
         </div>
       </div>
     </div>
